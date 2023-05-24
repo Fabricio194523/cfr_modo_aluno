@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "cfr_modo_aluno",
+    "slug": "cfr_modo_aluno",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
