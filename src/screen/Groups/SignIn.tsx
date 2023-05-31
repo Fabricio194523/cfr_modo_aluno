@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Flex, Stack, VStack, Text, Center, Box, Button, useToast } from "native-base";
+import { Flex, Stack, VStack, Text, Center, Box, Button, Heading } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Input } from "../../../components/Input";
 
-type FormData = {
+
+type FormDataProps = {
   username: string;
   password: string;
 };
@@ -15,20 +16,21 @@ export function SignIn() {
   const {
     control, handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormDataProps>();
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
 
-  const toast = useToast();
 
-  async function handleSignIn({ username, password }: FormData) {}
+  async function handleSignIn({ username, password }: FormDataProps) {
+      console.log(username, password)
+  }
     
 
   return (
     <VStack flex={1}>
-      <Stack minH="350px" pt="130px" backgroundColor="green.700">
+      <Stack minH="350px" pt="130px" backgroundColor="green.900">
         <Flex position={"absolute"} right={0} mt="50px" mr="28px">
           <Text fontFamily={"Poppins-Regular"} fontSize={"18px"} color="white">
             CFR-PTN
@@ -53,15 +55,22 @@ export function SignIn() {
         >
           <Center>
             <Flex mt="30px">
-              <Text fontSize={24} fontFamily={"Poppins-SemiBold"}>
+              <Heading fontSize={24} fontFamily={"Poppins-SemiBold"}>
                 Faça Login
-              </Text>
+              </Heading>
             </Flex>
             <Flex mt="60px">
               <Controller
                 control={control}
                 name="username"
-                rules={{ required: "Informe o username" }}
+                rules={{ 
+                  required: "Informe o email",
+                  pattern: {
+                    value:/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, //regex codigo
+                    message: 'E-mail inválido'
+                  }
+               }}
+                
                 render={({ field: { onChange } }) => (
                   <>
                     <Text
@@ -74,8 +83,8 @@ export function SignIn() {
                     <Input
                       placeholder="exemplo@exemplo.com.br"
                       fontSize={16}
-                      // keyboardType='email-address'
                       onChangeText={onChange}
+                      errorMessage={errors.username?.message}
                       borderColor="black"
                       color="black"
                       w="311px"
@@ -108,6 +117,8 @@ export function SignIn() {
                       color="black"
                       w="311px"
                       h="50px"
+                      onSubmitEditing={handleSubmit(handleSignIn)}
+                      returnKeyType="send"
                     />
                     <Button
                       position={"absolute"}
@@ -118,7 +129,7 @@ export function SignIn() {
                     >
                       <MaterialIcons
                         name="visibility-off"
-                        size={24}
+                        size={28}
                         color={passwordShown ? "#7C7C8A" : "#333"}
                       />
                     </Button>
