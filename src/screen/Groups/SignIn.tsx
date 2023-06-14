@@ -1,9 +1,23 @@
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Flex, Stack, VStack, Text, Center, Box, Button, Heading } from "native-base";
+import {
+  Flex,
+  Stack,
+  VStack,
+  Text,
+  Center,
+  Box,
+  Button,
+  Heading,
+  useToast,
+} from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Input } from "../../../components/Input";
 
+import { useAuth } from "@hooks/useAuth";
+import { useNavigation } from "@react-navigation/native";
+import { AuthNavigateRoutesProps } from "@routes/auth.routs";
+import { AppError } from "@utils/AppError";
 
 type FormDataProps = {
   username: string;
@@ -11,10 +25,15 @@ type FormDataProps = {
 };
 
 export function SignIn() {
+  const { signIn } = useAuth();
+
+  const navigation = useNavigation<AuthNavigateRoutesProps>();
+
   const [passwordShown, setPasswordShown] = useState(false);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const {
-    control, handleSubmit,
+    control,
+    handleSubmit,
     formState: { errors },
   } = useForm<FormDataProps>();
 
@@ -22,12 +41,30 @@ export function SignIn() {
     setPasswordShown(passwordShown ? false : true);
   };
 
+  const toast = useToast();
 
-  async function handleSignIn({ username, password }: FormDataProps) {
-      console.log(username, password)
+   async function handleSignIn({ username, password }: FormDataProps) {
+    try {
+      setIsLoading(true)
+      await signIn(username, password)
+      
+  } catch (error) {
+      const isAppError = error instanceof AppError;
+
+      const title = 'Não foi possível entrar. Tente novamente'
+
+      setIsLoading(false)
+      
+      toast.show({
+          title,
+          placement: 'top',
+          bgColor: "red.500",
+      })
+  } finally {
+      setIsLoading(false)
   }
+  };
     
-
   return (
     <VStack flex={1}>
       <Stack minH="350px" pt="130px" backgroundColor="green.900">
@@ -63,14 +100,9 @@ export function SignIn() {
               <Controller
                 control={control}
                 name="username"
-                rules={{ 
-                  required: "Informe o email",
-                  pattern: {
-                    value:/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, //regex codigo
-                    message: 'E-mail inválido'
-                  }
-               }}
-                
+                rules={{
+                  required: "Informe o seu usuario",
+                }}
                 render={({ field: { onChange } }) => (
                   <>
                     <Text
@@ -78,13 +110,12 @@ export function SignIn() {
                       fontFamily={"Achivo-Regular"}
                       color="gray.100"
                     >
-                      Email
+                      Usuario
                     </Text>
                     <Input
-                      placeholder="exemplo@exemplo.com.br"
+                      placeholder="Nome do usuario"
                       fontSize={16}
                       onChangeText={onChange}
-                      errorMessage={errors.username?.message}
                       borderColor="black"
                       color="black"
                       w="311px"

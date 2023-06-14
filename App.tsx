@@ -6,6 +6,7 @@ import { useFonts, Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { Poppins_400Regular } from '@expo-google-fonts/poppins';
 import Loading from '../cfr_modo_aluno/components/Loading';
 import { Routes } from "@routes/index";
+import { AuthContextProvider } from "@contexts/AuthContexts";
 
 
 export default function App() {
@@ -17,7 +18,10 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
+      <AuthContextProvider>
       {fontsLoaded ? <Routes /> : <Loading />}
+      </AuthContextProvider>
+      
     </NativeBaseProvider>
   );
 }
