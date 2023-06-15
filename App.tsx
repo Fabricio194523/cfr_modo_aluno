@@ -1,14 +1,18 @@
 import 'react-native-gesture-handler';
 
-import { StatusBar } from 'react-native';
-import { NativeBaseProvider } from 'native-base'
-
-import { Routes } from './src/routes';
-
+import React from "react";
+import { NativeBaseProvider, Box, StatusBar } from "native-base";
+import { SignIn } from "./src/screens/SignIn";
 import { THEME } from './src/theme';
+import { useFonts, Roboto_400Regular } from '@expo-google-fonts/roboto';
+import { Poppins_400Regular } from '@expo-google-fonts/poppins';
+import Loading from '../cfr_modo_aluno/components/Loading';
+import { Routes } from "@routes/index";
+import { AuthContextProvider } from "@contexts/AuthContexts";
+
 
 export default function App() {
-
+  const [fontsLoaded] = useFonts({Roboto_400Regular})
   return (
     <NativeBaseProvider theme={THEME}>
       <StatusBar
@@ -16,7 +20,10 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-       <Routes />
+      <AuthContextProvider>
+      {fontsLoaded ? <Routes /> : <Loading />}
+      </AuthContextProvider>
+      
     </NativeBaseProvider>
   );
 }

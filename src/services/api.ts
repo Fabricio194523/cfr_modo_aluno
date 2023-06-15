@@ -1,8 +1,16 @@
 import axios from 'axios'
+import { AppError } from '@utils/AppError';
 
 const api = axios.create({
     baseURL: 'http://ec2-3-17-229-63.us-east-2.compute.amazonaws.com',
-    // baseURL: 'http://192.168.1.11:8000' //APIfake do igniteGYM
 });
+
+api.interceptors.response.use((response) => response, (error) => {
+    if (error.response && error.response.data) {
+        return Promise.reject(new AppError(error.response.data.message))
+    } else {
+        return Promise.reject(error)
+    }
+})
 
 export { api }
