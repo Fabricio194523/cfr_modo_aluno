@@ -1,18 +1,21 @@
-import { useContext } from 'react'
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthRouts } from "./auth.routs";
 import { useAuth } from "../hooks/useAuth";
-import { AppRoutes } from './app.routes';
+import { AppRoutes } from "./app.routes";
+import Loading from "@components/Loading";
 
 export function Routes() {
-  const { user, token } = useAuth()
+  const { token, isLoadingUserStorageData } = useAuth();
 
-  console.log("USUÁRIO LOGADO =>" , user)
-
+  if (isLoadingUserStorageData){
+    return (
+        <Loading />
+    )
+}
 
   return (
     <NavigationContainer>
-      { token ? <AppRoutes /> : <AuthRouts />}
+      {token ? <AppRoutes /> : <AuthRouts />}
     </NavigationContainer>
   );
 }
