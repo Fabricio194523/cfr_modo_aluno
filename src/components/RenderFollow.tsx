@@ -1,6 +1,13 @@
+import { useNavigation } from "@react-navigation/native";
+import { AppNavigatorRoutesProps } from "@routes/app.routes";
 import { Box, Flex, Text } from "native-base";
 
 export default function RenderFollow({ dataOnline }: any) {
+    const navigation = useNavigation<AppNavigatorRoutesProps>()
+
+    function handleOpenFollowDetails(detailsId: string) {
+        navigation.navigate("details", { detailsId })
+    }
 
     return (
         <Box 
@@ -18,7 +25,7 @@ export default function RenderFollow({ dataOnline }: any) {
             <Flex flexDirection={"row"} mt="24px" ml="24px">
                 <Flex>
                     <Flex flexDirection="row">
-                        <Text mr="10px" fontSize={16}>
+                        <Text onPress={() => handleOpenFollowDetails(dataOnline.id)} mr="10px" fontSize={16}>
                             Monitor: {dataOnline._raw?._status == "created" ? dataOnline.nome :
                                 dataOnline.educador?.first_name + " " + dataOnline.educador?.last_name}
                         </Text>

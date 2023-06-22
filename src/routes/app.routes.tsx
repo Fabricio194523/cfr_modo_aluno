@@ -5,12 +5,14 @@ import { useState } from 'react';
 import { Box, VStack, Text, Divider, Pressable, HStack, Icon, Button } from 'native-base';
 import { Entypo, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Details from '@screens/Details';
 
 const Drawer = createDrawerNavigator()
 
 type AppRoutes = {
   listFollow: undefined,
   Drawer: undefined,
+  details: { detailsId: string },
 }
 
 export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutes>;
@@ -102,6 +104,10 @@ export function AppRoutes() {
         <Screen
           name="listFollow"
           component={ListFollow}
+        />
+        <Screen
+          name="details"
+          component={Details}
         />
       </Navigator>
     )

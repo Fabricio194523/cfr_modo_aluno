@@ -12,7 +12,8 @@ export function Routes() {
 
   return (
     <NavigationContainer>
-      { token ? <AppRoutes /> : <AuthRouts />}
+      {/* { token ? <AppRoutes /> : <AuthRouts />} */}
+      <AppRoutes />
     </NavigationContainer>
   );
 }

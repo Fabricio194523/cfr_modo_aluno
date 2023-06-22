@@ -6,11 +6,12 @@ import { AntDesign } from '@expo/vector-icons'
 import { api } from "../services/api";
 import Loading from "@components/Loading";
 import RenderFollow from "@components/RenderFollow";
-
+import { LoadingList } from "@components/LoadingList";
+import { AcompanhamentoData } from "./Details";
 
 export function ListFollow() {
     const [follow, setFollow] = useState([])
-    const [followLoading, setFollowLoading] = useState(false)
+    const [followLoading, setFollowLoading] = useState(true)
 
     async function fetchFollow() {
         setFollowLoading(true)
@@ -18,16 +19,24 @@ export function ListFollow() {
             .then(response => {
                 setFollow(response.data)
                 setFollowLoading(false)
+            }).catch(err => {
+                console.log(err)
             })
     }
 
     useEffect(() => {
         fetchFollow()
     }, [])
-
+    
     return (
         <VStack flex={1}>
-            <Stack minH="503px" w="100%" pt="110px" mb="30px" backgroundColor="#03A14A">
+            <Flex
+                minH="503"
+                w="100%"
+                bgColor="#016C31"
+                position={"absolute"}
+            />
+            <Stack pt="100">
                 <Flex w="250px" ml="28">
                     <Text
                         // fontFamily={"Poppins-Bold"}
@@ -64,15 +73,14 @@ export function ListFollow() {
                         </SafeAreaView>
                     </Flex>
                 </Flex>
-            </Stack>
-            {followLoading ? <Loading /> : (
+                {followLoading ? <LoadingList previous={false} /> : (
                 <SafeAreaView>
                     <Stack
                         w="343"
                         h="97.5%"
                         pb="1"
+                        mt="25"
                         backgroundColor={"white"}
-                        mt={"-250px"}
                         mx="auto"
                         position={"relative"}
                         zIndex={8999}
@@ -84,7 +92,7 @@ export function ListFollow() {
                         {follow.length > 0 ? (
                             <FlatList
                                 data={follow}
-                                keyExtractor={(item: any) => item.id}
+                                keyExtractor={(item: AcompanhamentoData) => item.id}
                                 renderItem={({ item }) => (<RenderFollow dataOnline={item} />)}
                                 refreshControl={
                                     <RefreshControl
@@ -118,6 +126,7 @@ export function ListFollow() {
                     </Stack>
                 </SafeAreaView>
             )}
+            </Stack>
         </VStack>
     )
 }
