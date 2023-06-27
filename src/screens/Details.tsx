@@ -33,6 +33,12 @@ export interface AcompanhamentoData {
     imagem: string,
     educador: {
         email: string,
+        first_name: string,
+        last_name: string,
+        imagem: string,
+        turma: {
+            nome: string,
+        }
     }
     data: string,
     situacao_produtiva: string,

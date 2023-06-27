@@ -1,28 +1,48 @@
 import { useEffect, useState } from "react";
-import { FlatList, RefreshControl, SafeAreaView, StyleSheet } from "react-native";
+import { FlatList, RefreshControl, SafeAreaView } from "react-native";
 import { Box, Flex, Select, Stack, Text, View, VStack } from "native-base";
 
 import { AntDesign } from '@expo/vector-icons'
 import { api } from "../services/api";
-import Loading from "@components/Loading";
 import RenderFollow from "@components/RenderFollow";
 import { LoadingList } from "@components/LoadingList";
 import { AcompanhamentoData } from "./Details";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function ListFollow() {
     const [follow, setFollow] = useState([])
     const [followLoading, setFollowLoading] = useState(true)
 
+    const [monitor, setMonitor] = useState("Filtrar por nome do monitor")
+    const [searchResults, setSearchResults] = useState([])
+
+    const monitorNameList = follow.map((monitor: AcompanhamentoData) => monitor.educador.first_name + " " + monitor.educador.last_name)
+    const uniqueMonitorNameList = [...Array.from(new Set(monitorNameList))]
+
     async function fetchFollow() {
         setFollowLoading(true)
-        api.get(`/empresarial/api/acompanhamento/?id=&turma=&aluno=&educador=387`)
+        const studentID = await AsyncStorage.getItem("alunoID")
+        api.get(`/empresarial/api/acompanhamento/?id=&turma=&aluno=${studentID}&educador=`)
             .then(response => {
                 setFollow(response.data)
+                setSearchResults(response.data)
+                setMonitor("Filtrar por nome do monitor")
                 setFollowLoading(false)
             }).catch(err => {
                 console.log(err)
             })
     }
+
+    useEffect(() => {
+        if (monitor === "Filtrar por nome do monitor" || monitor === "Todos") {
+            setSearchResults(follow)
+        } else {
+            setSearchResults((c) => (c = follow.filter((studentList: AcompanhamentoData) => {
+                return studentList.educador?.first_name.includes(monitor.split(' ')[0])
+            })))
+        }
+
+    }, [monitor])
 
     useEffect(() => {
         fetchFollow()
@@ -65,15 +85,21 @@ export function ListFollow() {
                                 dropdownIcon={<Flex mr="26">
                                     <AntDesign name="search1" size={24} color="#8F90A6" />
                                 </Flex>}
-                                placeholder="student"
-                                defaultValue="student"
+                                placeholder={monitor}
+                                onValueChange={setMonitor}
+                                defaultValue={monitor}
                             >
-                                <Select.Item value={"Todos"} label="Todos" />
+                                <Select.Item value={"Todos"} label="Todos"/>
+                                {uniqueMonitorNameList.map((nameMonitor) => {
+                                    return(
+                                        <Select.Item value={nameMonitor} label={nameMonitor} key={nameMonitor} />
+                                    )
+                                })}
                             </Select>
                         </SafeAreaView>
                     </Flex>
                 </Flex>
-                {followLoading ? <LoadingList previous={false} /> : (
+                {followLoading ? <LoadingList previous={true} /> : (
                 <SafeAreaView>
                     <Stack
                         w="343"
@@ -91,7 +117,7 @@ export function ListFollow() {
                     >
                         {follow.length > 0 ? (
                             <FlatList
-                                data={follow}
+                                data={searchResults}
                                 keyExtractor={(item: AcompanhamentoData) => item.id}
                                 renderItem={({ item }) => (<RenderFollow dataOnline={item} />)}
                                 refreshControl={

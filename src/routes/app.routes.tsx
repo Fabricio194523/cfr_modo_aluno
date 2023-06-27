@@ -5,7 +5,9 @@ import { useState } from 'react';
 import { Box, VStack, Text, Divider, Pressable, HStack, Icon, Button } from 'native-base';
 import { Entypo, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useAuth } from '@hooks/useAuth';
 import Details from '@screens/Details';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator()
 
@@ -20,17 +22,18 @@ export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutes>;
 const { Navigator, Screen } = createNativeStackNavigator<AppRoutes>();
 
 function CustomDrawerContent() {
-  const [loading, setLoading] =  useState(false)
+  const { signOut, usernameUser, emailUser } = useAuth()
+
   
     return (
       <DrawerContentScrollView>
         <VStack space="6" my="2" mx="1" px="23">
           <Box>
             <Text bold color="gray.700">
-              Aluno
+              {usernameUser}
             </Text>
             <Text fontSize="14" mt="0" color="gray.500" fontWeight="500">
-              Aluno@gmail.com
+              {emailUser}
             </Text>
           </Box>
           <VStack divider={<Divider />} space="4">
@@ -41,6 +44,7 @@ function CustomDrawerContent() {
                   py="3"
                   rounded="md"
                   bg="#EB8F05"
+                  onPress={signOut}
                 >
                   <HStack space="7" alignItems="center">
                     <Icon

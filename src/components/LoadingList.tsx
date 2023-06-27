@@ -13,7 +13,7 @@ export function LoadingList({ previous }: LoadingListProps) {
                 h="97.5%"
                 backgroundColor={"white"}
                 // mt={"-320px"}
-                mt={previous ? -250 : 6}
+                mt={previous ? 6 : 6}
                 mx="auto"
                 position={"relative"}
                 zIndex={8999}
@@ -22,7 +22,7 @@ export function LoadingList({ previous }: LoadingListProps) {
                 borderWidth={1}
                 overflow="hidden"
             >
-                <Flex my="auto">
+                <Flex my="250">
                   <Spinner color="green.500" />
                 </Flex>
             </Stack>
