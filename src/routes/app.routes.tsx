@@ -29,10 +29,10 @@ function CustomDrawerContent() {
       <DrawerContentScrollView>
         <VStack space="6" my="2" mx="1" px="23">
           <Box>
-            <Text bold color="gray.700">
-              {usernameUser}
+            <Text bold color="#1A1B2D" fontSize={16} fontFamily={"Poppins-SemiBold"}>
+              Aluno
             </Text>
-            <Text fontSize="14" mt="0" color="gray.500" fontWeight="500">
+            <Text fontSize="14" mt="0" color="gray.500" fontFamily={"Poppins-Regular"}>
               {emailUser}
             </Text>
           </Box>
@@ -53,7 +53,7 @@ function CustomDrawerContent() {
                       as={<MaterialIcons name="logout" size={24} color="#EB8F05" />}
                     />
                     <Text
-                      // fontFamily={"Poppins-SemiBold"}
+                      fontFamily={"Poppins-SemiBold"}
                       color="#FFF"
                     >
                       Logout

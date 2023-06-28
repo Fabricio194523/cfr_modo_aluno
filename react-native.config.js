@@ -1,5 +1,5 @@
 module.exports = {
-    project: {
+    projetct: {
         ios: {},
         android: {},
     },

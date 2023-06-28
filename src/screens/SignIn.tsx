@@ -12,12 +12,12 @@ import {
   useToast,
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Input } from "../../components/Input";
 
 import { useAuth } from "@hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigateRoutesProps } from "@routes/auth.routs";
 import { AppError } from "@utils/AppError";
+import { Input } from "@components/Input";
 
 type FormDataProps = {
   username: string;
@@ -70,7 +70,7 @@ export function SignIn() {
       <Stack minH="350px" pt="130px" backgroundColor="green.900">
         <Flex position={"absolute"} right={0} mt="50px" mr="28px">
           <Text 
-            // fontFamily={"Poppins-Regular"} 
+            fontFamily={"Poppins-Regular"} 
             fontSize={"18px"} 
             color="white"
           >
@@ -79,7 +79,7 @@ export function SignIn() {
         </Flex>
         <Flex w="250px" ml="28px">
           <Text 
-            // fontFamily={"Poppins-Bold"} 
+            fontFamily={"Poppins-Bold"} 
             fontSize={"24px"} 
             color="white"
           >
@@ -100,9 +100,9 @@ export function SignIn() {
         >
           <Center>
             <Flex mt="30px">
-              <Heading fontSize={24} /*fontFamily={"Poppins-SemiBold"}*/>
+              <Text fontSize={24} color="#000" fontFamily={"Poppins-SemiBold"}>
                 Faça Login
-              </Heading>
+              </Text>
             </Flex>
             <Flex mt="60px">
               <Controller
@@ -115,8 +115,8 @@ export function SignIn() {
                   <>
                     <Text
                       fontSize={16}
-                      // fontFamily={"Achivo-Regular"}
                       color="gray.100"
+                      fontFamily={"Roboto-Regular"}
                     >
                       Usuario
                     </Text>
@@ -139,10 +139,10 @@ export function SignIn() {
                 name="password"
                 rules={{ required: "Informe a senha" }}
                 render={({ field: { onChange } }) => (
-                  <>
+                  <Flex>
                     <Text
                       fontSize={16}
-                      // fontFamily={"Achivo-Regular"}
+                      fontFamily={"Roboto-Regular"}
                       color="gray.100"
                     >
                       Senha
@@ -172,7 +172,7 @@ export function SignIn() {
                         color={passwordShown ? "#7C7C8A" : "#333"}
                       />
                     </Button>
-                  </>
+                  </Flex>
                 )}
               />
             </Flex>
@@ -180,11 +180,17 @@ export function SignIn() {
               <Button
                 w="311px"
                 h="51px"
-                // fontFamily={"Poppins-Medium"}
                 bgColor="orange.400"
                 borderRadius={"7px"}
                 onPress={handleSubmit(handleSignIn)}
                 isLoading={isLoading}
+                _text={{
+                  color: "white",
+                  size: 16,
+                  pt: 22,
+                  ml: 5,
+                  fontFamily: "Poppins-Medium"
+                }}
               >
                 Entrar
               </Button>

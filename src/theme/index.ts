@@ -27,7 +27,6 @@ export const THEME = extendTheme({
             50: '#F5F5F5'
         },
     },
-    fonts: {},
     fontSizes: {
         xs: 12,
         sm: 14,

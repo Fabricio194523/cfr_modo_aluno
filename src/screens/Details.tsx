@@ -124,7 +124,7 @@ export default function Details() {
                         >
                             <Flex mt="30px" display="flex" flexDirection={"row"} justifyContent={"space-between"}>
                                 <Flex>
-                                    <Text fontSize={24} color="#333">Detalhes</Text>
+                                    <Text fontSize={24} fontFamily={"Poppins-SemiBold"} color="#000">Detalhes</Text>
                                 </Flex>
                             </Flex>
                             <Flex
@@ -136,10 +136,10 @@ export default function Details() {
                                 borderBottomWidth={0.6}
                             >
                                 <Flex>
-                                    <Text fontSize={14} color="#333">Aluno :</Text>
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">Aluno :</Text>
                                 </Flex>
                                 <Flex mb="5px">
-                                    <Text fontSize={14} color="#333">{details.aluno.first_name + " " + details.aluno.last_name}</Text>
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">{details.aluno.first_name + " " + details.aluno.last_name}</Text>
                                 </Flex>
                             </Flex>
                             <Flex
@@ -151,10 +151,10 @@ export default function Details() {
                                 borderBottomWidth={0.6}
                             >
                                 <Flex>
-                                    <Text fontSize={14} color="#333">Monitor :</Text>
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">Monitor :</Text>
                                 </Flex>
                                 <Flex mb="5px">
-                                    <Text fontSize={14} color="#333">{details.educador.email}</Text>
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">{details.educador.email}</Text>
                                 </Flex>
                             </Flex>
                             <Flex
@@ -166,10 +166,10 @@ export default function Details() {
                                 borderBottomWidth={0.6}
                             >
                                 <Flex>
-                                    <Text fontSize={14} color="#333">Comunidade :</Text>
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">Comunidade :</Text>
                                 </Flex>
                                 <Flex mb="5px">
-                                    <Text fontSize={14} color="#333">{details.comunidade}</Text>
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">{details.comunidade}</Text>
                                 </Flex>
                             </Flex>
                             <Flex
@@ -180,10 +180,10 @@ export default function Details() {
                                 borderBottomWidth={0.6}
                             >
                                 <Flex>
-                                    <Text fontSize={14} color="#333">Situação produtiva :</Text>
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">Situação produtiva :</Text>
                                 </Flex>
                                 <Flex mb="5px" mt="10px">
-                                    <Text fontSize={14} color="#333">
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">
                                         {details.situacao_produtiva.length > 0 ? (details.situacao_produtiva) : 
                                             "Não aferido"
                                         }
@@ -198,10 +198,10 @@ export default function Details() {
                                 borderBottomWidth={0.6}
                             >
                                 <Flex>
-                                    <Text fontSize={14} color="#333">Situação Pedagogica :</Text>
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">Situação Pedagogica :</Text>
                                 </Flex>
                                 <Flex my="0px">
-                                    <Text fontSize={14} color="#333">
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">
                                         {details.situacao_pedagogica.length > 0 ? details.situacao_pedagogica : 
                                             "Não aferido"
                                         }
@@ -216,10 +216,10 @@ export default function Details() {
                                 borderBottomWidth={0.6}
                             >
                                 <Flex>
-                                    <Text fontSize={14} color="#333">Situação Familiar :</Text>
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">Situação Familiar :</Text>
                                 </Flex>
                                 <Flex my="10px">
-                                    <Text fontSize={14} color="#333">
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">
                                         {details.situacao_familiar.length > 0 ? details.situacao_familiar :
                                             "Não aferido"
                                         }
@@ -234,10 +234,10 @@ export default function Details() {
                                 borderBottomWidth={0.6}
                             >
                                 <Flex>
-                                    <Text fontSize={14} color="#333">Recomendações :</Text>
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">Recomendações :</Text>
                                 </Flex>
                                 <Flex my="10px">
-                                    <Text fontSize={14} color="#333">
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">
                                         {details.recomendacao}
                                     </Text>
                                 </Flex>
@@ -248,7 +248,7 @@ export default function Details() {
                                 justifyContent={"space-between"}
                             >
                                 <Flex>
-                                    <Text fontSize={14} color="#333">Imagem :</Text>
+                                    <Text fontSize={14} fontFamily={"Poppins-Regular"} color="#000">Imagem :</Text>
                                 </Flex>
                                 <Flex my="10px">
                                 {!details.imagem && !details.aluno.imagem ? (
