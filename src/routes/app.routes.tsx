@@ -53,7 +53,7 @@ function CustomDrawerContent() {
                       as={<MaterialIcons name="logout" size={24} color="#EB8F05" />}
                     />
                     <Text
-                      // fontFamily={"Poppins-SemiBold"}
+                      fontFamily={"Poppins-SemiBold"}
                       color="#FFF"
                     >
                       Logout
@@ -89,7 +89,7 @@ function CustomDrawerContent() {
             headerLeft: () => (
               <TouchableOpacity
                 onPress={() => navigation.openDrawer()}>
-                <Entypo name="menu" size={24} color="white" style={{ marginLeft: 28, marginTop: 28 }}  />
+                <Entypo name="menu" size={24} color="white" style={{ marginLeft: 28, marginTop: -7 }}  />
               </TouchableOpacity>)
           })} 
         />

@@ -56,10 +56,10 @@ export function ListFollow() {
                 bgColor="#016C31"
                 position={"absolute"}
             />
-            <Stack pt="100">
+            <Stack pt="130">
                 <Flex w="250px" ml="28">
                     <Text
-                        // fontFamily={"Poppins-Bold"}
+                        fontFamily={"Poppins-Bold"}
                         fontSize={"24px"}
                         color="white"
                     >
@@ -75,7 +75,7 @@ export function ListFollow() {
                                 pl="17"
                                 pr="26"
                                 fontSize={14}
-                                // fontFamily={"Poppins-Regular"}
+                                fontFamily={"Poppins-Regular"}
                                 alignItems={"center"}
                                 backgroundColor="#fff"
                                 borderRadius="7"
@@ -140,7 +140,7 @@ export function ListFollow() {
                                     <Flex flexDirection={"row"} mt="131px" ml="20px">
                                         <Text
                                             fontSize={24}
-                                            // fontFamily={"Poppins-SemiBold"}
+                                            fontFamily={"Poppins-SemiBold"}
                                             color="#000"
                                         >
                                             Nenhum acompanhamento anterior.

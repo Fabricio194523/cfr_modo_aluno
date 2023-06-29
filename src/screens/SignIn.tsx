@@ -70,7 +70,7 @@ export function SignIn() {
       <Stack minH="350px" pt="130px" backgroundColor="green.900">
         <Flex position={"absolute"} right={0} mt="50px" mr="28px">
           <Text 
-            // fontFamily={"Poppins-Regular"} 
+            fontFamily={"Poppins-Regular"} 
             fontSize={"18px"} 
             color="white"
           >
@@ -79,7 +79,7 @@ export function SignIn() {
         </Flex>
         <Flex w="250px" ml="28px">
           <Text 
-            // fontFamily={"Poppins-Bold"} 
+            fontFamily={"Poppins-Bold"} 
             fontSize={"24px"} 
             color="white"
           >
@@ -100,7 +100,7 @@ export function SignIn() {
         >
           <Center>
             <Flex mt="30px">
-              <Heading fontSize={24} /*fontFamily={"Poppins-SemiBold"}*/>
+              <Heading fontSize={24} fontFamily={"Poppins-SemiBold"}>
                 Faça Login
               </Heading>
             </Flex>
@@ -115,7 +115,7 @@ export function SignIn() {
                   <>
                     <Text
                       fontSize={16}
-                      // fontFamily={"Achivo-Regular"}
+                      fontFamily={"Achivo-Regular"}
                       color="gray.100"
                     >
                       Usuario
@@ -142,7 +142,7 @@ export function SignIn() {
                   <>
                     <Text
                       fontSize={16}
-                      // fontFamily={"Achivo-Regular"}
+                      fontFamily={"Achivo-Regular"}
                       color="gray.100"
                     >
                       Senha
@@ -180,7 +180,7 @@ export function SignIn() {
               <Button
                 w="311px"
                 h="51px"
-                // fontFamily={"Poppins-Medium"}
+                fontFamily={"Poppins-Medium"}
                 bgColor="orange.400"
                 borderRadius={"7px"}
                 onPress={handleSubmit(handleSignIn)}
