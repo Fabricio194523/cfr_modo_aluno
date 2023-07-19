@@ -1,5 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { AuthRouts } from "./auth.routs";
+import { AuthRoutes } from "./auth.routes";
 import { useAuth } from "../hooks/useAuth";
 import { AppRoutes } from "./app.routes";
 import Loading from "@components/Loading";
@@ -15,7 +15,7 @@ export function Routes() {
 
   return (
     <NavigationContainer>
-      {token ? <AppRoutes /> : <AuthRouts />}
+      {token ? <AppRoutes /> : <AuthRoutes />}
     </NavigationContainer>
   );
 }

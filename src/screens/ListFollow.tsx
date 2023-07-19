@@ -22,13 +22,18 @@ export function ListFollow() {
     async function fetchFollow() {
         setFollowLoading(true)
         const studentID = await AsyncStorage.getItem("alunoID")
-        api.get(`/empresarial/api/acompanhamento/?id=&turma=&aluno=${studentID}&educador=`)
+        await api.get(`/empresarial/api/acompanhamentosTotais/?id=&turma=&aluno=${studentID}&educador=`, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+        })
             .then(response => {
                 setFollow(response.data)
                 setSearchResults(response.data)
-                setMonitor("Filtrar por nome do monitor")
                 setFollowLoading(false)
             }).catch(err => {
+                setFollowLoading(false)
                 console.log(err)
             })
     }
@@ -89,7 +94,7 @@ export function ListFollow() {
                                 onValueChange={setMonitor}
                                 defaultValue={monitor}
                             >
-                                <Select.Item value={"Todos"} label="Todos"/>
+                                <Select.Item value="Todos" label="Todos"/>
                                 {uniqueMonitorNameList.map((nameMonitor) => {
                                     return(
                                         <Select.Item value={nameMonitor} label={nameMonitor} key={nameMonitor} />
@@ -103,7 +108,8 @@ export function ListFollow() {
                 <SafeAreaView>
                     <Stack
                         w="343"
-                        h="97.5%"
+                        h="82%"
+                        // maxH="82%"
                         pb="1"
                         mt="25"
                         backgroundColor={"white"}
@@ -118,6 +124,7 @@ export function ListFollow() {
                         {follow.length > 0 ? (
                             <FlatList
                                 data={searchResults}
+                                showsVerticalScrollIndicator={false}
                                 keyExtractor={(item: AcompanhamentoData) => item.id}
                                 renderItem={({ item }) => (<RenderFollow dataOnline={item} />)}
                                 refreshControl={
@@ -136,6 +143,7 @@ export function ListFollow() {
                                     display="flex"
                                     flexDirection={"column"}
                                     w="100%"
+                                    h="100%"
                                 >
                                     <Flex flexDirection={"row"} mt="131px" ml="20px">
                                         <Text

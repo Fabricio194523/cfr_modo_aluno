@@ -89,7 +89,7 @@ function CustomDrawerContent() {
             headerLeft: () => (
               <TouchableOpacity
                 onPress={() => navigation.openDrawer()}>
-                <Entypo name="menu" size={24} color="white" style={{ marginLeft: 28, marginTop: -7 }}  />
+                <Entypo name="menu" size={24} color="white" style={{ marginLeft: 28, marginTop: 25 }}  />
               </TouchableOpacity>)
           })} 
         />

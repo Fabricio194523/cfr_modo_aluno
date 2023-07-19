@@ -81,7 +81,7 @@ export default function Details() {
     setLoadging(true);
     try {
       const response = await api.get(
-        `/empresarial/api/acompanhamento/${detailsId}`
+        `/empresarial/api/acompanhamentosTotais/${detailsId}`
       );
       setDetails(response.data);
       if (response) {
