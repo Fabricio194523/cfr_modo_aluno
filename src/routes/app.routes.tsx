@@ -1,13 +1,11 @@
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { ListFollow } from '../screens/ListFollow'
 import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer';
-import { useState } from 'react';
 import { Box, VStack, Text, Divider, Pressable, HStack, Icon, Button } from 'native-base';
 import { Entypo, MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useAuth } from '@hooks/useAuth';
 import Details from '@screens/Details';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Drawer = createDrawerNavigator()
 

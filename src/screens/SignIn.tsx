@@ -128,6 +128,8 @@ export function SignIn() {
                       color="black"
                       w="311px"
                       h="50px"
+                      autoCapitalize="none"
+                      autoComplete="name"
                     />
                   </>
                 )}
@@ -158,6 +160,7 @@ export function SignIn() {
                       h="50px"
                       onSubmitEditing={handleSubmit(handleSignIn)}
                       returnKeyType="send"
+                      autoCapitalize="none"
                     />
                     <Button
                       position={"absolute"}
