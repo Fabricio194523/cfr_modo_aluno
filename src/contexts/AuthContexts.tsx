@@ -39,10 +39,10 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     setUsernameUser(username)
   }
 
-  async function storageUserAndTokenSave(username: string, token: string){
+  async function storageUserAndTokenSave(username: string, token: string) {
     try {
       setIsLoadingUserStorageData(true)
-      
+
       await storageUserSave(username)
       await storageAuthTokenSave(token)
     } catch (error) {
@@ -71,34 +71,37 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     };
 
     api
-        .post('/auth/token', data, config)
-        .then((response) => {
-          const {access_token} = response.data;
-          storageUserAndTokenSave(username, access_token)
-          userAndTokenUpdate(username, access_token)
-        })
-        .catch((err) => {
+      .post('/auth/token', data, config)
+      .then((response) => {
+        const { access_token } = response.data;
+        storageUserAndTokenSave(username, access_token)
+        userAndTokenUpdate(username, access_token)
+      })
+      .catch((err) => {
+        let title = '';
 
-          const title = 'Login ou senha incorretos.'
-            
-            Toast.show({
-                title,
-                placement: 'top',
-                bgColor: "red.500",
-            })
-        }).finally(() => {
-          setIsLoadingUserStorageData(false)
-        });
+        if (err.message === "Invalid credentials given.", "invalid_grant") {
+          title = 'Login ou senha incorretos.';
+        }
 
-        api.get(`/rh_cfr/api/aluno/?username=${username}&turma=&nome=&nome__in=&nome__startswith=&email=&email__in=&ativo=&id=`)
-        .then((response) => {
-          var responseId = response.data.map((student: any) => {
-            setEmailUser(student.email)
-            let aluno = student.pk
-            return aluno
-          })
-            AsyncStorage.setItem("alunoID", String(responseId))
+        Toast.show({
+          title,
+          placement: 'top',
+          bgColor: "red.500",
         })
+      }).finally(() => {
+        setIsLoadingUserStorageData(false)
+      });
+
+    api.get(`/rh_cfr/api/aluno/?username=${username}&turma=&nome=&nome__in=&nome__startswith=&email=&email__in=&ativo=&id=`)
+      .then((response) => {
+        var responseId = response.data.map((student: any) => {
+          setEmailUser(student.email)
+          let aluno = student.pk
+          return aluno
+        })
+        AsyncStorage.setItem("alunoID", String(responseId))
+      })
   }
 
   async function loadUserData() {
@@ -121,7 +124,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       setIsLoadingUserStorageData(true)
       setToken('')
       await storageUserRemove()
-      await storageAuthTokenRemove() 
+      await storageAuthTokenRemove()
     } catch (error) {
       throw error
     } finally {
@@ -130,7 +133,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
   }
 
   return (
-    <AuthContext.Provider value={{signIn, token, isLoadingUserStorageData, signOut, usernameUser, emailUser }}>
+    <AuthContext.Provider value={{ signIn, token, isLoadingUserStorageData, signOut, usernameUser, emailUser }}>
       {children}
     </AuthContext.Provider>
   );

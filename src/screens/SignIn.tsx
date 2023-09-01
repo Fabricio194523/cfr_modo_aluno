@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
   Flex,
@@ -18,6 +18,7 @@ import { useAuth } from "@hooks/useAuth";
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigateRoutesProps } from "@routes/auth.routes";
 import { AppError } from "@utils/AppError";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 type FormDataProps = {
   username: string;
@@ -31,6 +32,8 @@ export function SignIn() {
 
   const [passwordShown, setPasswordShown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const netInfo = useNetInfo();
+  
   const {
     control,
     handleSubmit,
@@ -44,25 +47,35 @@ export function SignIn() {
   const toast = useToast();
 
    async function handleSignIn({ username, password }: FormDataProps) {
-    try {
-      setIsLoading(true)
-      await signIn(username, password)
-      
-  } catch (error) {
-      const isAppError = error instanceof AppError;
+    if (!netInfo.isConnected) {
+      const title = 'Sem Internet, conctece-se e tente novamente!'
 
-      const title = 'Não foi possível entrar. Tente novamente'
-
-      setIsLoading(false)
-      
       toast.show({
+        title,
+        placement: 'top',
+        bgColor: "red.500",
+      })
+    } else {
+      try {
+        setIsLoading(true)
+        await signIn(username, password)
+
+      } catch (error) {
+        const isAppError = error instanceof AppError;
+
+        const title = 'Não foi possível entrar. Tente novamente'
+
+        setIsLoading(false)
+
+        toast.show({
           title,
           placement: 'top',
           bgColor: "red.500",
-      })
-  } finally {
-      setIsLoading(false)
-  }
+        })
+      } finally {
+        setIsLoading(false)
+      }
+    }
   };
   
   return (
@@ -129,7 +142,7 @@ export function SignIn() {
                       w="311px"
                       h="50px"
                       autoCapitalize="none"
-                      autoComplete="name"
+                      autoComplete="username"
                     />
                   </>
                 )}

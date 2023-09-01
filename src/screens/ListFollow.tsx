@@ -8,10 +8,12 @@ import RenderFollow from "@components/RenderFollow";
 import { LoadingList } from "@components/LoadingList";
 import { AcompanhamentoData } from "./Details";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 export function ListFollow() {
     const [follow, setFollow] = useState([])
     const [followLoading, setFollowLoading] = useState(true)
+    const netInfo = useNetInfo();
 
     const [monitor, setMonitor] = useState("Filtrar por nome do monitor")
     const [searchResults, setSearchResults] = useState([])
@@ -26,7 +28,7 @@ export function ListFollow() {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-              },
+            },
         })
             .then(response => {
                 setFollow(response.data)
@@ -50,8 +52,14 @@ export function ListFollow() {
     }, [monitor])
 
     useEffect(() => {
-        fetchFollow()
-    }, [])
+        if (!netInfo.isConnected) {
+            setFollowLoading(true)
+            setFollow([])
+            setFollowLoading(false)
+        } else {
+            fetchFollow()
+        }
+    }, [netInfo])
     
     return (
         <VStack flex={1}>
@@ -151,7 +159,7 @@ export function ListFollow() {
                                             fontFamily={"Poppins-SemiBold"}
                                             color="#000"
                                         >
-                                            Nenhum acompanhamento anterior.
+                                            {netInfo.isConnected ? "Nenhum acompanhamento anterior." : "Sem internet, conecte-se novamente!"}
                                         </Text>
                                     </Flex>
                                 </Box>
